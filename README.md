@@ -58,19 +58,22 @@ Ensure `JWT_SECRET_KEY` and `DB_URL` are set in your environment variables. The 
 ## 🚦 Getting Started
 
 ### 1. Environment Setup
-Create a `.env` file in the root directory (or use Replit Secrets) with the following variables:
+Create a `.env` file in the backend directory with the following variables:
 
 ```env
 # Database Configuration
-DB_URL=postgresql://<user>:<password>@<host>:<port>/<database>?sslmode=disable
-PGUSER=<your_db_user>
-PGPASSWORD=<your_db_password>
-PGHOST=<your_db_host>
-PGPORT=5432
-PGDATABASE=<your_db_name>
+DB_URL=ostgresql://<user>:<password>@<host>:<port>/<database>?sslmode=disable
+DB_USERNAME=<your_db_user>
+DB_PASSWORD=<your_db_password>
 
 # Security
 JWT_SECRET_KEY=your_super_secret_jwt_key_here
+```
+Create a `.env` file in the frontend directory with the following variables:
+
+```env
+# The URL of your backend API
+NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
 
 ### 2. Running Locally
@@ -78,6 +81,9 @@ JWT_SECRET_KEY=your_super_secret_jwt_key_here
 #### Backend (Spring Boot)
 ```bash
 cd backend
+
+cp .env.example .env
+
 mvn spring-boot:run
 ```
 The backend will start on `http://localhost:8080`.
@@ -85,6 +91,7 @@ The backend will start on `http://localhost:8080`.
 #### Frontend (Next.js)
 ```bash
 cd frontend
+cp .env.example .env
 npm install
 npm run dev
 ```

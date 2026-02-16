@@ -95,7 +95,7 @@ export default function HomePage() {
             Trusted by teams worldwide
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 grayscale opacity-50">
-            {['Stripe', 'Vercel', 'Linear', 'GitHub', 'Replit', 'Notion'].map(name => (
+            {['Stripe', 'Vercel', 'Render', 'GitHub', 'Replit', 'Notion'].map(name => (
               <div key={name} className="flex items-center justify-center font-bold text-xl tracking-tighter italic">
                 {name}
               </div>
