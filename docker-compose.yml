@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: starterdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    restart: always
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/starterdb
+      PGUSER: postgres
+      PGPASSWORD: password
+      JWT_SECRET: super_secret_key_at_least_32_chars
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
