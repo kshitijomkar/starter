@@ -31,9 +31,24 @@ graph TD
 ### Backend
 - **Framework:** [Spring Boot](https://spring.io/projects/spring-boot) (v3.2.2)
 - **Language:** Java 19
-- **Database:** PostgreSQL
+- **Database:** PostgreSQL/MySQL with support to H2 DB Fallback
 - **Security:** Spring Security with JWT & BCrypt hashing
 - **API Documentation:** Swagger UI / OpenAPI 3.0
+
+### Database Support
+Vortex supports multiple databases with an automatic zero-config fallback:
+- **H2 (Default)**: In-memory database, starts automatically without any setup. Ideal for quick starts. It is the primary option if no credentials are provided.
+    - **PostgreSQL**: Supported via environment variables.
+    - **MySQL**: Supported via environment variables.
+
+    To switch databases, simply set the following environment variables:
+    - `DB_URL`: The JDBC connection string (e.g., `jdbc:postgresql://localhost:5432/db` or `jdbc:mysql://localhost:3306/db`).
+    - `DB_USERNAME`: Database username.
+    - `DB_PASSWORD`: Database password.
+    - `DB_DRIVER`: The driver class name (e.g., `org.postgresql.Driver` or `com.mysql.cj.jdbc.Driver`).
+    - `DB_DIALECT`: The Hibernate dialect (e.g., `org.hibernate.dialect.PostgreSQLDialect` or `org.hibernate.dialect.MySQLDialect`).
+
+    If these are not provided, the application will automatically fall back to an in-memory H2 database.
 
 ## ✨ Features
 - **Full Auth Flow:** Secure Signup and Login with email/password.
@@ -79,19 +94,20 @@ NEXT_PUBLIC_API_URL=http://localhost:8080
 ### 2. Running Locally
 
 #### Backend (Spring Boot)
+1. Ensure you have Java 17+ and Maven installed.
+2. The application is configured to use H2 in-memory database by default, so no setup is required.
+3. Run the following command:
 ```bash
 cd backend
-
-cp .env.example .env
-
 mvn spring-boot:run
 ```
 The backend will start on `http://localhost:8080`.
 
 #### Frontend (Next.js)
+1. Ensure you have Node.js 18+ installed.
+2. Run the following commands:
 ```bash
 cd frontend
-cp .env.example .env
 npm install
 npm run dev
 ```
